@@ -9,11 +9,18 @@ class SinglyLinkedList:
 
     # 리스트가 비어있는지 확인하는 메서드
     def is_empty(self):
-        pass
+        return self.head is None
 
     # 리스트의 끝에 노드를 추가하는 메서드
     def append(self, data):
-        pass
+        node = Node(data)
+        if self.is_empty():
+            self.head = node
+        else:
+            current = self.head
+            while current:
+                current = current.next
+            current.next = node
 
     # 특정 위치에 노드를 삽입하는 메서드
     def insert(self, data, position):
