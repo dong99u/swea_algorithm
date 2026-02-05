@@ -7,16 +7,16 @@ input_data = [
     [8, 'E', 0, 0],
 ]
 
-n = 16
-tree = [[None, None, None] for _ in range(n + 1)]
-
+N = 16
+# tree = [[None, None, None], ['A', 2, 3], ...]
+tree = [[None, None, None] for _ in range(N+1)]
 print(len(tree))
 for idx in range(len(input_data)):
     my_idx = input_data[idx][0]
     value = input_data[idx][1]
 
-    left = input_data[idx][2]
-    right = input_data[idx][3]
+    left_child_idx = input_data[idx][2]
+    right_child_idx = input_data[idx][3]
 
-    tree[my_idx] = [value, left, right]
-
+    tree[my_idx] = [value, left_child_idx, right_child_idx]
+print(tree)

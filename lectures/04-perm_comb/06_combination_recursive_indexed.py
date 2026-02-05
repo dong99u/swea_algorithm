@@ -3,12 +3,12 @@ def combinations(arr, r, current_comb, start_idx):
         print(current_comb)
         return
 
+    # 쓸데없는 조사 안하도록 하기...
+
     for idx in range(start_idx, len(arr)):
         current_comb.append(arr[idx])
-        combinations(arr, r, current_comb, idx + 1)
+        combinations(arr, r, current_comb, idx+1)
         current_comb.pop()
-
-
 # 사용 예시
 my_list = [1, 2, 3, 4]
 r = 3 # 3개의 요소를 선택하는 조합

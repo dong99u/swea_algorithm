@@ -9,3 +9,22 @@ input_data = [
     ['E', 2],
     ['D', 2]
 ]
+N = 16
+tree = [0] * (N + 1)
+for data in input_data:
+    value = data[0]
+    parent = data[1]
+
+    left_child = parent * 2
+    right_child = parent * 2 + 1
+
+    if parent == 0: # 루트
+        tree[1] = value
+        continue
+    if tree[left_child] == 0:
+        tree[left_child] = value
+    else:
+        tree[right_child] = value
+print(tree)
+
+

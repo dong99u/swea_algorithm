@@ -2,15 +2,25 @@
 
 # 전위 순회
 def preorder_traversal(idx):
-    pass
+    if idx <= N:
+        print(tree[idx])
+        preorder_traversal(idx*2)
+        preorder_traversal(idx*2+1)
 
 # 중위 순회
 def inorder_traversal(idx):
-    pass
+    if idx <= N:
+        inorder_traversal(idx * 2)
+        print(tree[idx])
+        inorder_traversal(idx * 2 + 1)
 
 # 후위 순회
 def postorder_traversal(idx):
-    pass
+    if idx <= N:
+        postorder_traversal(idx*2)
+        postorder_traversal(idx*2+1)
+        print(tree[idx])
+
 
 N = 5
 tree = [0, 'A', 'B', 'C', 'D', 'E']
