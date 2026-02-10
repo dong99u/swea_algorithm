@@ -1,65 +1,44 @@
 import sys
 sys.stdin = open('input.txt')
 import heapq
-from collections import defaultdict, deque
-
-'''
-n = 주차 공간의 개수 (1 ~ n)
-m = 들어오는 차량의 수
-r = i번째 주차 공간의 단위 무게당 요금 리스트
-w = i번 차량의 무게 (차량번호i와 도착 순서는 상관x)
-'''
+from collections import deque
 
 t = int(input())
 
 for test_case in range(1, t + 1):
     n, m = map(int, input().split())
+    r = [int(input()) for _ in range(n)]
+    w = [int(input()) for _ in range(m)]
 
-    # 0-indexed
-    r = []
-    w = []
-    for _ in range(n):
-        r.append(int(input()))
-
-    for _ in range(m):
-        w.append(int(input()))
-
-    # 비어있는 주차장 리스트
-    h = [] # (i 번째 주차 번호, 단위 무게당 금액)
-    for i, ri in enumerate(r):
-        heapq.heappush(h, (i, ri))
+    # 빈 주차 공간 힙 (번호가 작은 순)
+    h = list(range(n))
+    heapq.heapify(h)
 
     answer = 0
-
-    first_entry = deque()
+    used = {}       # 차량번호 -> 주차 공간 인덱스
+    wait = deque()  # 대기 큐
 
     for _ in range(2 * m):
         car_num = int(input())
-        first_entry.append(car_num)
 
-    wait = deque()
-    wait.append(first_entry.popleft())
+        if car_num > 0:  # 입차
+            if h:
+                spot = heapq.heappop(h)
+                answer += w[car_num - 1] * r[spot]
+                used[car_num] = spot
+            else:
+                wait.append(car_num)  # 자리 없으면 대기
 
-    # 사용중인 차량번호: 주차번호
-    used = defaultdict(int)
-    while wait:
-        car_num = wait.popleft()
-        # 들어오는 차량
-        if car_num > 0:
-            if not h:
-                wait.appendleft(car_num - 1)
-                continue
-            i, ri = heapq.heappop(h)
-            cost = w[car_num - 1] * ri
-            answer += cost
-            used[car_num - 1] = i
-        # 나가는 차량
-        elif car_num < 0:
-            i = used[car_num - 1]
-            del used[car_num - 1]
-            heapq.heappush(h, (i, r[i]))
+        else:  # 출차
+            out = -car_num
+            spot = used.pop(out)
+            heapq.heappush(h, spot)  # 자리 반납
 
-        if first_entry:
-            wait.append(first_entry.popleft())
+            # 대기 차량이 있으면 즉시 배정
+            if wait:
+                next_car = wait.popleft()
+                new_spot = heapq.heappop(h)
+                answer += w[next_car - 1] * r[new_spot]
+                used[next_car] = new_spot
 
     print(f'#{test_case} {answer}')
