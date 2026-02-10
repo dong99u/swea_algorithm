@@ -7,9 +7,9 @@ import heapq
 priority_queue = []
 
 # 우선순위 큐에 요소 추가 (우선순위, 작업)
-heapq.heappush(priority_queue, (3, "3 priority task"))  # 우선순위 3인 작업 추가
-heapq.heappush(priority_queue, (1, "1 priority task"))  # 우선순위 1인 작업 추가
-heapq.heappush(priority_queue, (2, "2 priority task"))  # 우선순위 2인 작업 추가
+heapq.heappush(priority_queue, (1, "C"))  # 우선순위 3인 작업 추가
+heapq.heappush(priority_queue, (1, "A"))  # 우선순위 1인 작업 추가
+heapq.heappush(priority_queue, (1, "B"))  # 우선순위 2인 작업 추가
 
 # 현재 우선순위 큐의 상태 출력
 print(priority_queue)  
